@@ -9,6 +9,8 @@ class Facility(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    # MODIFY: opening and closing times of facility can be added.
+
     def __str__(self):
         return f'Facility: {self.name} ID: {self.id}'
 
@@ -37,6 +39,8 @@ class Booking(models.Model):
         default='pending')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    # MODIFY: Capacity needed can also be added.
 
     def __str__(self):
         return f'Booking ID: {self.id}'

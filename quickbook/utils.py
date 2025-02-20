@@ -3,6 +3,13 @@ from django.utils import timezone
 
 
 def available_slots(facility, date):
+    """
+        This utility function is to retrieve available slots with respect
+        to the facility and date provided based on capacity.
+
+        Assumptions:
+          - All facilities are open 24 Hrs (If not necessary, MODIFY's are to be made.)
+    """
     booked_slots = facility.bookings.filter(
         date=date).exclude(
         status='cancelled').values(
@@ -10,7 +17,8 @@ def available_slots(facility, date):
         'end_time').distinct()
     booked_slots = sorted(
         [(booking['start_time'], booking['end_time']) for booking in booked_slots])
-
+    
+    # MODIFY: retrieve the opening time and closing time of facility from DB.
     start_of_day = timezone.make_aware(
         datetime.combine(date, datetime.min.time()))
     end_of_day = start_of_day + timedelta(days=1)
@@ -38,6 +46,7 @@ def available_slots(facility, date):
     for slot in all_slots:
         slot_start, slot_end = slot
 
+        # NOTE: checking the overlapping bookings
         booked_count = facility.bookings.filter(
             date=date,
             start_time__lt=slot_end.time(),

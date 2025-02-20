@@ -4,6 +4,9 @@ from django.core.exceptions import ValidationError
 
 
 class Validator:
+    """
+        Centralised validator for all auth related stuff.
+    """
     @staticmethod
     def unique_email_validator(value):
         from authbase.models import User

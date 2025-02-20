@@ -14,6 +14,9 @@ from .tasks import notify_on_booking_confirmation
 
 
 class FacilitiesView(LoginRequiredMixin, ListView):
+    """
+        Retreives all the facilities available in the booking system.
+    """
     model = Facility
     template_name = 'quickbook/facilities/list.html'
     context_object_name = 'facilities'
@@ -21,6 +24,9 @@ class FacilitiesView(LoginRequiredMixin, ListView):
 
 
 class AvailableSlotsView(LoginRequiredMixin, View):
+    """
+        Retrieves available slots on a particular date for the choosen facility.
+    """
     def get(self, request, pk):
         facility = get_object_or_404(Facility, id=pk)
         date_str = request.GET.get('date')
@@ -31,6 +37,9 @@ class AvailableSlotsView(LoginRequiredMixin, View):
 
 
 class BookingsView(LoginRequiredMixin, ListView):
+    """
+        Retrieves all the bookings made by the User.
+    """
     model = Booking
     template_name = 'quickbook/bookings/list.html'
     context_object_name = 'bookings'
@@ -42,6 +51,9 @@ class BookingsView(LoginRequiredMixin, ListView):
 
 
 class BookingBaseView(LoginRequiredMixin, View):
+    """
+        Base class for Booking - CREATE & UPDATE.
+    """
     model = Booking
     form_class = BookingForm
     success_url = reverse_lazy('quickbook:bookings-list')
@@ -51,6 +63,10 @@ class BookingBaseView(LoginRequiredMixin, View):
 
 
 class BookingCreateView(BookingBaseView, CreateView):
+    """
+        Creates booking with respect to facility provided and
+        associates with the user.
+    """
     template_name = 'quickbook/bookings/create.html'
 
     def form_valid(self, form):
@@ -64,6 +80,9 @@ class BookingCreateView(BookingBaseView, CreateView):
 
 
 class BookingUpdateView(BookingBaseView, UpdateView):
+    """
+        Updates booking.
+    """
     template_name = 'quickbook/bookings/update.html'
 
     def get_object(self, queryset=None):

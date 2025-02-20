@@ -8,12 +8,18 @@ from .forms import UserSignupForm, UserLoginForm
 
 
 class UserSignupView(FormView):
+    """
+        User signup or register view
+        @params: first_name, last_name, email, password, confirm_password
+    """
     template_name = 'authbase/signup.html'
     form_class = UserSignupForm
     success_url = reverse_lazy('quickbook:bookings-list')
 
     def form_valid(self, form):
         user = form.save()
+        # MODIFY: Instead of logging in immediately, a 2 factor auth can be added
+        #         like sending and email with a code etc and serve it using VerifyUser View.
         login(self.request, user)
         return JsonResponse(
             {'success': True, 'redirect_url': str(self.success_url)})
@@ -26,6 +32,10 @@ class UserSignupView(FormView):
 
 
 class UserLoginView(LoginView):
+    """
+        User login view
+        @params: email, password
+    """
     template_name = 'authbase/login.html'
     form_class = UserLoginForm
     success_url = reverse_lazy('quickbook:bookings-list')

@@ -4,6 +4,7 @@ from .views import FacilitiesView, AvailableSlotsView, BookingsView, BookingCrea
 app_name = 'quickbook'
 
 urlpatterns = [
+    # NOTE: Allowing both '/' as well as '/bookings/' on this view.
     re_path(r'^(bookings/)?$', BookingsView.as_view(), name='bookings-list'),
     path('bookings/<int:pk>/update/', BookingUpdateView.as_view(), name='bookings-update'),
     path('bookings/create/', BookingCreateView.as_view(), name='bookings-create'),

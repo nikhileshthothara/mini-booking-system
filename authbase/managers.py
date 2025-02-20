@@ -2,6 +2,9 @@ from django.contrib.auth.models import BaseUserManager
 
 
 class UserManager(BaseUserManager):
+    """
+        Custom user manager to provide expanision and add other necessary methods.
+    """
     def create_user(self, email=None, password=None, **extra_fields):
         if email is None or password is None:
             raise ValueError('Email and Password must be set.')
