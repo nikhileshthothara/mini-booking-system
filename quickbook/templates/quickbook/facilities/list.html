@@ -1,0 +1,50 @@
+{% extends 'quickbook/base.html' %}
+{% load static %}
+
+{% block title %}Facilities{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="container d-flex">
+        <div class="col-md-8">
+            <h2 class="mb-4">Facilities</h2>
+            {% if facilities %}
+            <div class="row">
+                {% for facility in facilities %}
+                <div class="col-md-3">
+                    <div class="card mb-3 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ facility.name }}</h5>
+                            <p class="card-text"><strong>Location:</strong> {{ facility.location }}</p>
+                            <p class="card-text"><strong>Capacity:</strong> {{ facility.capacity }}</p>
+                            <button class="btn btn-primary check-slots" data-facility-id="{{ facility.id }}">
+                                Check Availability
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="alert alert-info" role="alert">
+                No facilities available.
+            </div>
+            {% endif %}  
+        </div>
+
+        {% if facilities %}
+            <div class="col-md-4 mt-5">
+                <div class="mb-3">
+                    <label for="date" class="form-label"><strong>Select Date:</strong></label>
+                    <input type="date" id="date" class="form-control" value="{{ today|date:'Y-m-d' }}">
+                </div>
+                <h4>Availability</h4>
+                <div class="mt-2" style="max-height: 300px; overflow-y: auto;">
+                    <ul id="slots-list" class="list-group"></ul>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+<script src="{% static 'quickbook/js/facilitiesList.js' %}"></script>
+{% endblock %}

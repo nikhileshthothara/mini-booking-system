@@ -3,6 +3,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     form.addEventListener("submit", function(event) {
         event.preventDefault();
+        const alertDiv = document.querySelector(".alert-danger");
+        alertDiv.style.display = "none";
+        alertDiv.textContent = "";
 
         const formData = new FormData(form);
         const csrfToken = document.querySelector("[name=csrfmiddlewaretoken]").value;
@@ -21,13 +24,19 @@ document.addEventListener("DOMContentLoaded", function () {
             if (data.success) {
                 window.location.href = data.redirect_url;
             } else {
+                if (data.errors) {
+                    alertDiv.style.display = "block";
+                    alertDiv.textContent = data.errors;
+                }
                 for (const field in data.errors) {
                     const errorDiv = document.getElementById("error_" + field);
-                    data.errors[field].forEach(error => {
-                        const p = document.createElement("p");
-                        p.textContent = error;
-                        errorDiv.appendChild(p);
-                    });
+                    if (errorDiv) {
+                        data.errors[field].forEach(error => {
+                            const p = document.createElement("p");
+                            p.textContent = error;
+                            errorDiv.appendChild(p);
+                        });
+                    }
                 }
             }
         })

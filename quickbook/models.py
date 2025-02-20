@@ -38,8 +38,5 @@ class Booking(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    class Meta:
-        unique_together = ('facility', 'date', 'start_time', 'end_time')
-
     def __str__(self):
         return f'Booking ID: {self.id}'

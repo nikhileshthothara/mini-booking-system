@@ -1,32 +1,6 @@
 from django import forms
 from django.utils.timezone import now
-from .models import Facility, Booking
-
-
-class FacilityForm(forms.ModelForm):
-    class Meta:
-        model = Facility
-        fields = ['name', 'location', 'capacity']
-        widgets = {
-            'name': forms.TextInput(
-                attrs={
-                    'class': 'form-control',
-                    'placeholder': 'Facility Name'}),
-            'location': forms.TextInput(
-                attrs={
-                    'class': 'form-control',
-                    'placeholder': 'Location'}),
-            'capacity': forms.NumberInput(
-                attrs={
-                    'class': 'form-control',
-                    'placeholder': 'Total Capacity'}),
-        }
-
-    def clean_capacity(self):
-        capacity = self.cleaned_data.get('capacity')
-        if capacity < 1:
-            raise forms.ValidationError("Capacity must be at least 1.")
-        return capacity
+from .models import Booking
 
 
 class BookingForm(forms.ModelForm):
@@ -61,7 +35,24 @@ class BookingForm(forms.ModelForm):
         cleaned_data = super().clean()
         start_time = cleaned_data.get('start_time')
         end_time = cleaned_data.get('end_time')
+        facility = cleaned_data.get('facility')
+        booking_date = cleaned_data.get('date')
 
         if start_time and end_time and start_time >= end_time:
             raise forms.ValidationError("End time must be after start time.")
+
+        if facility and booking_date and start_time and end_time:
+            overlapping_bookings_count = Booking.objects.filter(
+                facility=facility,
+                date=booking_date,
+                start_time__lt=end_time,
+                end_time__gt=start_time
+            ).count()
+
+            facility_capacity = facility.capacity
+
+            if overlapping_bookings_count >= facility_capacity:
+                raise forms.ValidationError(
+                    f"The facility is already fully booked for this time slot. Capacity is {facility_capacity}.")
+
         return cleaned_data

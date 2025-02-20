@@ -1,0 +1,27 @@
+{% extends 'quickbook/base.html' %}
+{% load static %}
+
+{% block title %}Bookings{% endblock %}
+
+{% block content %}
+    <div class="container d-flex justify-content-center align-items-center" style="height: 80vh;">
+        <div class="card shadow-sm p-4 w-100" style="max-width: 400px;">
+            <form class="form-group mb-3 w-100" id="bookings-form" method="post" action="{% url 'quickbook:bookings-update' booking.id %}" data-booking-id="{{ booking.id }}" novalidate>
+                {% csrf_token %}
+                
+                {% for field in form %}
+                <div class="form-field mb-3">
+                    <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    <div>
+                        {{ field }}
+                    </div>
+                    <div id="error_{{ field.name }}" class="text-danger small"></div>
+                </div>
+                {% endfor %}
+                
+                <button class="btn btn-primary w-100" type="submit">Update Booking</button>
+            </form>
+        </div>
+    </div>
+    <script src="{% static 'quickbook/js/bookingsUpdate.js' %}"></script>
+{% endblock %}
