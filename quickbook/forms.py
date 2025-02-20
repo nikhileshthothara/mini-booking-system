@@ -42,16 +42,18 @@ class BookingForm(forms.ModelForm):
             raise forms.ValidationError("End time must be after start time.")
 
         if facility and booking_date and start_time and end_time:
-            overlapping_bookings_count = Booking.objects.filter(
+            overlapping_bookings = Booking.objects.filter(
                 facility=facility,
                 date=booking_date,
                 start_time__lt=end_time,
                 end_time__gt=start_time
-            ).count()
+            )
+            if self.instance:
+                overlapping_bookings = overlapping_bookings.exclude(id=self.instance.id)
 
             facility_capacity = facility.capacity
 
-            if overlapping_bookings_count >= facility_capacity:
+            if overlapping_bookings.count() >= facility_capacity:
                 raise forms.ValidationError(
                     f"The facility is already fully booked for this time slot. Capacity is {facility_capacity}.")
 
