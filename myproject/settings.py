@@ -137,3 +137,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'authbase.User'
 LOGIN_URL = '/auth/login/'
 LOGOUT_REDIRECT_URL = '/auth/login/'
+
+# Celery Config
+CELERY_RESULT_BACKEND = ''
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RETRY_COUNTDOWN = 5 * 60
+CELERY_MAX_RETRIES = 3
+CELERY_TASK_ACKS_LATE = True
+CELERY_TASK_REJECT_ON_WORKER_LOST = True
+
+CELERY_BROKER_URL = 'amqp://guest:guest@rabbitmq:5672//'

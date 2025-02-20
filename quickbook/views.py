@@ -10,6 +10,7 @@ from django.utils import timezone
 from .forms import BookingForm
 from .models import Facility, Booking
 from .utils import available_slots
+from .tasks import notify_on_booking_confirmation
 
 
 class FacilitiesView(LoginRequiredMixin, ListView):
@@ -54,7 +55,8 @@ class BookingCreateView(BookingBaseView, CreateView):
 
     def form_valid(self, form):
         form.instance.user = self.request.user
-        form.save()
+        booking = form.save()
+        notify_on_booking_confirmation.delay(booking.id)
         return self.json_response(True, redirect_url=self.success_url)
 
     def form_invalid(self, form):
