@@ -1,10 +1,11 @@
-QuickBook - Facility Booking System
+**QuickBook - Facility Booking System**
 
-Project Overview
+**Project Overview**
 
-QuickBook is a Django-based web application that allows users to book facilities based on capacity. Users can sign up, log in, create, update, and cancel their bookings while ensuring no overlapping reservations occur.
+QuickBook is a Django-based web application that allows users to book facilities based on capacity. Users can sign up, log in,  
+create, update, and cancel their bookings while ensuring no overlapping reservations occur.
 
-Features
+**Features**
 
 1.  User authentication (Signup, Login, Logout)
 2.  Facility management (List, Check Availability)
@@ -15,24 +16,24 @@ Features
 7.  Unit tests for critical functioanlity (Booking Management)
 8.  Docker support for easy development and deployment
 
-Tech Stack
+**Tech Stack**
 
-Backend: Django, Django ORM
-Frontend: HTML, CSS, Bootstrap, JavaScript (AJAX)
-Database: PostgreSQL
-Authentication: Django’s built-in auth system
-Containerization: Docker, Docker Compose
-Tasks: Celery, RabbitMQ
+    1. Backend: Django, Django ORM
+    2. Frontend: HTML, CSS, Bootstrap, JavaScript (AJAX)
+    3. Database: PostgreSQL
+    4. Authentication: Django’s built-in auth system
+    5. Containerization: Docker, Docker Compose
+    6. Tasks: Celery, RabbitMQ
 
 
-Installation
-    - git clone git@github.com:nikhileshthothara/mini-booking-system.git
-    - cd mini-booking-system/
-    - docker-compose build
-    - docker-compose up -d
+**Installation**  
+    1. git clone git@github.com:nikhileshthothara/mini-booking-system.git  
+    2. cd mini-booking-system/  
+    3. docker-compose build  
+    4. docker-compose up -d  
 
-Create a Superuser (Admin Access)
-    - docker-compose exec web python manage.py createsuperuser
+**Create a Superuser (Admin Access)**  
+    1. docker-compose exec web python manage.py createsuperuser
 
-Access the Application
-    - Navigate to localhost:8000
+**Access the Application**  
+    1. Navigate to localhost:8000
