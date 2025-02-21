@@ -37,3 +37,13 @@ create, update, and cancel their bookings while ensuring no overlapping reservat
 
 **Access the Application**  
     1. Navigate to localhost:8000
+
+**Areas for Improvement**  
+    1. Modify's (marked in code) can be implemented  
+    2. Logging system can be added  
+    3. Task Revocation (celery) for tasks can be added  
+    4. Password management (Forgot, Reset)  
+    5. More Interactive UI (using Modals for creation and updatation)  
+    6. Use SES for Emails (currently using console)  
+    7. On Production level create RabbitMQ users  
+    8. Add Pagination related to Bookings and Facilities (Large scale)  
