@@ -148,3 +148,7 @@ CELERY_TASK_ACKS_LATE = True
 CELERY_TASK_REJECT_ON_WORKER_LOST = True
 
 CELERY_BROKER_URL = 'amqp://guest:guest@rabbitmq:5672//'
+
+# EMAIL
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+LOCAL_TIMEZONE = 'Europe/Paris'

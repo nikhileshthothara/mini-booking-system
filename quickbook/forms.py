@@ -47,7 +47,7 @@ class BookingForm(forms.ModelForm):
                 date=booking_date,
                 start_time__lt=end_time,
                 end_time__gt=start_time
-            )
+            ).exclude(status='cancelled')
             if self.instance:
                 overlapping_bookings = overlapping_bookings.exclude(id=self.instance.id)
 
