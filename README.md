@@ -46,4 +46,5 @@ create, update, and cancel their bookings while ensuring no overlapping reservat
     5. More Interactive UI (using Modals for creation and updatation)  
     6. Use SES for Emails (currently using console)  
     7. On Production level create RabbitMQ users  
-    8. Add Pagination related to Bookings and Facilities (Large scale)  
+    8. Add Pagination related to Bookings and Facilities (Large scale)
+    9. Better UI for empty states (403, 400)  
