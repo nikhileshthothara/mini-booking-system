@@ -17,11 +17,7 @@ def auto_cancel_booking(booking_id):
             booking.save()
             send_mail(
                 subject="Facility Booking Cancellation",
-                message=f"Dear {
-                    booking.user.first_name},\n\nYour booking for {
-                    booking.facility.name} on {
-                    booking.date} at {
-                    booking.start_time} has been cancelled.",
+                message=f"Dear {booking.user.first_name},\n\nYour booking for {booking.facility.name} on {booking.date} at {booking.start_time} has been cancelled.",
                 from_email=settings.DEFAULT_FROM_EMAIL,
                 recipient_list=[
                     booking.user.email],
@@ -47,11 +43,7 @@ def notify_on_facility_booking(booking_id):
         booking = Booking.objects.get(id=booking_id)
         send_mail(
             subject="Facility Booking Notification",
-            message=f"Dear {
-                booking.user.username},\n\nYour booking for {
-                booking.facility.name} on {
-                booking.date} at {
-                    booking.start_time} is Booked.\n\nPlease confirm (If not) your booking prior to 30 minutes.",
+            message=f"Dear {booking.user.username},\n\nYour booking for {booking.facility.name} on {booking.date} at {booking.start_time} is Booked.\n\nPlease confirm (If not) your booking prior to 30 minutes.",
             from_email=settings.DEFAULT_FROM_EMAIL,
             recipient_list=[
                 booking.user.email],
